@@ -87,3 +87,18 @@ $ export INGRESS_HOST=$(minikube ip)
 
 $ curl http://$INGRESS_HOST:$INGRESS_PORT
 ```
+
+
+### Monitoring
+we need to deploy Prometheus and Grafana for to setup monitoring. Since we need basic monitoring, we'll use the prometheus helm charts. 
+
+```bash
+$ helm install prometheus-stack prometheus-community/kube-prometheus-stack
+```
+
+To access the Grafana dashboard, we can port forward the grafan server which is running on port 80 and map to a free port, e.g. 3000.
+```bah
+$ kubectl port-forward service/prometheus-stack-grafana 3000:80
+```
+
+The prometheus-stack come with predefined dashboards which includes basic CPU, Memory and network monitoring.
